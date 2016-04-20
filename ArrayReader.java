@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.io.*;
 import java.util.*;
 
@@ -6,23 +5,33 @@ public class ArrayReader
 {
 	public static void main (String[] args) throws IOException
 	{
-		Scanner fileScan;
+		Dataset display = new Dataset();
+		Dataset total = new Dataset();
 		File myFile = new File ("Lab2.txt");
-		fileScan = new Scanner(myFile);
+		Scanner fileScan = new Scanner(myFile);
+		Scanner fileBreak;
+		String line;
+		int y =0;
 
-		String person;
+		String [] [] grid = new String [25] [10];
 
-		while (fileScan.hasNext())
+		while(fileScan.hasNext())
 		{
-			person = fileScan.nextLine();
-			System.out.println(person);
-			Scanner scan2 = new Scanner(person);
-			scan2.useDelimiter("\\t");
+			line = fileScan.nextLine();
+			fileBreak = new Scanner(line).useDelimiter("\t");
 
-			while (scan2.hasNext())
-				System.out.println("  " +scan2.next());
-
-				System.out.println();
+			for (int i=0; i<10; i++)
+				{
+				grid[y][i] = fileBreak.next();
+				}
+			y++;
 		}
+		
+		display.print(grid, 25);
+		
+		double roundedTotal = Math.round(total.donationTotal(grid,  25)*100)/100.0;
+		System.out.println("Total: " +roundedTotal);
+		
+		System.out.println();
 	}
 }
